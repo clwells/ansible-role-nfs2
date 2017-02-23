@@ -5,4 +5,4 @@
 
 - name: restart nfs services
   service: name="{{ item }}" state=restarted
-  with_items: nfs_services
+  with_items: "{{ nfs_services }}"
