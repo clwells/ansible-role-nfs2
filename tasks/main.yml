@@ -28,7 +28,7 @@
   file: path="{{ item.path }}" state=directory
         owner='{{ item.owner|default(nfs_default_owner) }}'
         group='{{ item.group|default(nfs_default_group) }}'
-        mode='{{ item.mode|default("0777") }}'
+        mode='{{ item.mode|default("0755") }}'
   with_items: "{{ nfs_exported_directories }}"
 
 - name: Ensure exported directories are in /etc/exports
@@ -40,12 +40,12 @@
   service: name="{{ item }}"
            state=stopped
            enabled=no
-  with_items: nfs_services
+  with_items: "{{ nfs_services }}"
   when: exports.changed and not nfs_exported_directories
 
 - name: Ensure NFS service started and enabled
   service: name="{{ item }}"
            state=restarted
            enabled=yes
-  with_items: nfs_services
+  with_items: "{{ nfs_services }}"
   when: (exports.changed or ports.changed) and nfs_exported_directories
