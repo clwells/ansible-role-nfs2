@@ -23,6 +23,7 @@
               line='{{ item.name }}={{ item.value }}'
   with_items: "{{ nfs_ports }}"
   notify: restart nfs services
+  register: ports
 
 - name: Ensure exported directory exists
   file: path="{{ item.path }}" state=directory
