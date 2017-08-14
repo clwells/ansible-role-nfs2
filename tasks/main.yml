@@ -25,6 +25,33 @@
   notify: restart nfs services
   register: ports
 
+- name: Setup RPCNFSDARGS
+  lineinfile: dest="{{ nfs_config_file }}"
+              regexp="^#?RPCNFSDARGS"
+              line='RPCNFSDARGS="{{ rpc_nfsd_args }}"'
+  notify: restart nfs services
+  when:
+    - backnet_addr is defined
+
+- name: Setup STATDARG
+  lineinfile: dest="{{ nfs_config_file }}"
+              regexp="^#?STATDARG"
+              line='STATDARG="{{ rpc_statd_args }}"'
+  notify: restart nfs services
+  when:
+    - backnet_addr is defined
+
+- name: Setup RPCBIND_ARGS
+  lineinfile: dest="{{ rpcbind_config_file }}"
+              regexp="^#?RPCBIND_ARGS"
+              line='RPCBIND_ARGS="{{ rpc_bind_args }}"'
+  notify: restart nfs services
+  when:
+    - backnet_addr is defined
+
+- name: flush handlers to apply config changes
+  meta: flush_handlers
+
 - name: Ensure exported directory exists
   file: path="{{ item.path }}" state=directory
         owner='{{ item.owner|default(nfs_default_owner) }}'
