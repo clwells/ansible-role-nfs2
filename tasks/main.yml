@@ -49,7 +49,7 @@
   when:
     - backnet_addr is defined
 
-- name: flush handlers to apply config changes
+- name: Flush Handlers to Apply Config Changes
   meta: flush_handlers
 
 - name: Ensure exported directory exists
