@@ -8,3 +8,7 @@ nfs_ports:
   - {name: RQUOTAD_PORT,        value: 875}
   - {name: STATD_PORT,          value: 662}
   - {name: STATD_OUTGOING_PORT, value: 2020}
+
+rpc_nfsd_args:  ""
+rpc_statd_args: ""
+rpc_bind_args:  ""
