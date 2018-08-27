@@ -33,6 +33,14 @@
   when:
     - backnet_addr is defined
 
+- name: Setup RPCNFSDCOUNT
+  lineinfile: dest="{{ nfs_config_file }}"
+              regexp="^#?RPCNFSDCOUNT"
+              line='RPCNFSDCOUNT="{{ rpc_nfsd_count }}"'
+  notify: restart nfs services
+  when:
+    - backnet_addr is defined
+
 - name: Setup STATDARG
   lineinfile: dest="{{ nfs_config_file }}"
               regexp="^#?STATDARG"

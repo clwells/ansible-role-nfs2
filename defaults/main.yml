@@ -12,3 +12,4 @@ nfs_ports:
 rpc_nfsd_args:  ""
 rpc_statd_args: ""
 rpc_bind_args:  ""
+rpc_nfsd_count: 32
